@@ -1,0 +1,242 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+body {
+  padding: 0 5% 0 5%;
+  background: linear-gradient(62deg, #0f1125, #016430);
+  animation: gradient 20s ease infinite;
+  background-size: 400% 400%;
+  border: none;
+}
+
+.search {
+  margin: 0 auto;
+  margin-top: 1%;
+  padding: 0 auto;
+  max-width: 40%;
+  border: none;
+}
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.row-today {
+  margin: 0 auto;
+  margin: 4%;
+}
+.col-map {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1%;
+  margin-right: 1%;
+  box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+  -webkit-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+}
+iframe {
+  width: 100%;
+  height: 700px;
+  max-height: 650px;
+}
+.name,
+.today {
+  max-width: 400px !important;
+  min-width: 400px;
+  max-height: 120px;
+  height: 120px;
+  margin: 0 1% 2% 1%;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  opacity: 70%;
+}
+.temp,
+.rain,
+.wind,
+.hum {
+  max-width: 177px !important;
+  min-width: 177px;
+  height: 120px;
+  min-height: 120px;
+  margin: 2% 1% 2% 1%;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  opacity: 70%;
+}
+.row-name-today {
+  padding: 0% 1% 2% 1%;
+}
+.row-name-today .name {
+  font-family: 'SVN-Avo';
+  font-size: 44px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row-name-today .today {
+  font-family: 'SVN-Avo';
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-view .row1 {
+  margin: 0 auto;
+  margin: 0 1% 4% 1%;
+  width: 100%;
+}
+.description {
+  width: 120px !important;
+  height: 120px;
+  padding: 0 auto;
+  margin: 0 2% 2% 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.col-view .row1 .description span {
+  font-family: 'SVN-Avo';
+  font-size: 20px;
+  color: white;
+}
+.col-view .row1 .description img {
+  margin: 0 auto;
+  padding: 0 auto;
+}
+/* ========temp========= */
+.temp {
+  max-height: 120px;
+  height: 120px;
+}
+#chartdiv {
+  width: 100%;
+  height: 120px !important;
+}
+/* ========end temp ========= */
+
+/* ==========hum========== */
+/* circle */
+.hum {
+  max-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 auto;
+}
+
+.hum .round {
+  max-width: 120px;
+  position: relative;
+}
+.hum .round strong {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 30px;
+  color: #212121;
+  font-weight: 100;
+}
+.hum .round span {
+  position: absolute;
+  top: 19%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 12px;
+  color: #212121;
+  font-weight: 100;
+}
+/* end hum  */
+
+/*============== wind============== */
+.wind {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bar-Overflow {
+  /* Wraps the rotating .bar */
+  position: relative;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 100%;
+  height: 50%; /* Half circle (overflow) */
+  padding: 0 auto;
+  margin: 0 auto;
+}
+.bar {
+  margin: 0 auto;
+  padding: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  width: 120px;
+  height: 120px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 20px solid darkgray; /* half gray, */
+  border-bottom-color: rgba(0, 212, 255, 1);
+  /* half azure */
+  border-right-color: rgba(0, 212, 255, 1);
+}
+.wind span {
+  position: absolute;
+  top: 55%;
+  font-size: 23px;
+}
+.wind p {
+  position: absolute;
+  top: 75%;
+}
+.wind .p-wind-speed {
+  position: absolute;
+  top: 5%;
+}
+/* =============end wind============= */
+/* =======chart-temp-rain========== */
+.chart-temp-rain {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3%;
+}
+.chart-temp-rain h6 {
+  text-align: center;
+}
+#chartdiv2 {
+  width: 100%;
+  height: 400px;
+}

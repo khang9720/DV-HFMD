@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    {% comment %} CSS {% endcomment %} {% comment %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    {% endcomment %} {% comment %} boostrap {% endcomment %}
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    {% comment %} gg maps {% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    {% comment %} Autocomplete {% endcomment %}
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+    />
+    {% comment %} Amcharts {% endcomment %}
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+    {% comment %} end amcharts {% endcomment %}
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"
+      integrity="sha512-6kvhZ/39gRVLmoM/6JxbbJVTYzL/gnbDVsHACLx/31IREU4l3sI7yeO0d4gw8xU5Mpmm/17LMaDHOCf+TvuC2Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.js"
+      integrity="sha512-8tHhvNIEwJiw6wQDCVob7hCrwfECKknmtZAdP8JdqZcQ6OEAf1aaErJAzTAL5tQYrcrJOhqS2P3laAuwk4+e5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.js"
+      integrity="sha512-1H+cM+oeza0TJglvGWQHdb6cW2gS2ptQE9s0wV24+OaTmr60hZdRgGDqfuEzlbrb7NyOHCsY21Y4/AoKFwmiug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"
+      integrity="sha512-EZhmSl/hiKyEHklogkakFnSYa5mWsLmTC4ZfvVzhqYNLPbXKAXsjUYRf2O9OlzQN33H0xBVfGSEIUeqt9astHQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>DV HFMD</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="search">
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <div id="autocomplete" class="autocomplete">
+              <input class="autocomplete-input" name="name" />
+              <ul class="autocomplete-result-list"></ul>
+            </div>
+          </div>
+          {% for message in messages %}
+          <div class="alert alert-danger" role="alert">{{message}}</div>
+          {% endfor %}
+        </form>
+      </div>
+    </div>
+    <div class="row row-today">
+      <div class="col col-map">
+        <h2>Google Maps</h2>
+        <iframe
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;ll={{lat}},{{lon}}&amp;spn=0.011254,0.021307&amp;t=m&amp;z=10&amp;output=embed"
+        ></iframe>
+      </div>
+      <div class="col col-view">
+        <div class="row row-name-today">
+          <div class="col name">{{name}}</div>
+          <div class="col today">{{today}}</div>
+        </div>
+        <div class="row row1">
+          <div class="col description">
+            <img
+              src=" http://openweathermap.org/img/wn/{{current_icon}}@2x.png "
+              alt=""
+            />
+            <span>{{description}}</span>
+          </div>
+          <div class="col temp">
+            <div id="chartdiv"></div>
+          </div>
+          <div class="col hum">
+            <div class="round round1" data-size="100" data-thickness="8">
+              <span>Độ ẩm</span>
+              <strong></strong>
+            </div>
+          </div>
+          <div class="col wind">
+            <p class="p-wind-speed">Tốc độ gió</p>
+            <div class="bar-Overflow">
+              <div class="bar"></div>
+            </div>
+            <span id="count1">{{current_wind_speed}}</span>
+            <p>m/s</p>
+          </div>
+        </div>
+        <div class="chart-temp-rain">
+          <h6>Nhiệt độ và lượng mưa 8 ngày tiếp theo</h6>
+          <div id="chartdiv2" class="col"></div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/search-name.js' %}"></script>
+    <script src="{% static 'js/current_hum.js' %}"></script>
+    <script src="{% static 'js/current_temp.js' %}"></script>
+    <script src="{% static 'js/current_wind.js' %}"></script>
+    <script src="{% static 'js/day-8-temp-rain.js' %}"></script>
+    <script>
+      var js_variable = {{day_8|safe  }}
+      current_temp({{current_temperature}})
+      current_hum({{current_humidity}})
+      day_8_temp_rain(js_variable)
+    </script>
+  </body>
+</html>
