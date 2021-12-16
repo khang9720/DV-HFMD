@@ -44,6 +44,7 @@ body {
 .row-today {
   margin: 0 auto;
   margin: 4%;
+  margin-top: 2%;
 }
 .col-map {
   background-color: white;
@@ -62,7 +63,7 @@ iframe {
 }
 .name,
 .today {
-  max-width: 400px !important;
+  max-width: 410px !important;
   min-width: 400px;
   max-height: 120px;
   height: 120px;
@@ -239,4 +240,16 @@ iframe {
 #chartdiv2 {
   width: 100%;
   height: 400px;
+}
+
+/* ===============7 day ago ================ */
+.row-7-day-ago {
+  margin: 0 auto;
+  margin: 4%;
+  margin-top: 2%;
+  background-color: white;
+}
+#chartdiv3 {
+  width: 100%;
+  height: 500px;
 }

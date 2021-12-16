@@ -30,10 +30,7 @@ var current_temp = function (current_temperature) {
       },
     },
   ]
-  console.log(current_temperature)
-  console.log(data)
   // Add cursor
-  // https://www.amcharts.com/docs/v5/charts/radar-chart/#Cursor
   var cursor = chart.set(
     'cursor',
     am5radar.RadarCursor.new(root, {
@@ -44,7 +41,6 @@ var current_temp = function (current_temperature) {
   cursor.lineY.set('visible', false)
 
   // Create axes and their renderers
-  // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_axes
   var xRenderer = am5radar.AxisRendererCircular.new(root, {
     //minGridDistance: 50
   })
@@ -95,7 +91,6 @@ var current_temp = function (current_temperature) {
   yAxis.data.setAll(data)
 
   // Create series
-  // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_series
   var series1 = chart.series.push(
     am5radar.RadarColumnSeries.new(root, {
       xAxis: xAxis,
@@ -151,7 +146,6 @@ var current_temp = function (current_temperature) {
   series2.data.setAll(data)
 
   // Animate chart and series in
-  // https://www.amcharts.com/docs/v5/concepts/animations/#Initial_animation
   series1.appear(1000)
   series2.appear(1000)
   chart.appear(1000, 100)

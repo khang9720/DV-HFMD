@@ -1,21 +1,17 @@
-var day_8_temp_rain = function (day_8) {
+var chart_temp_rain = function (day_8, chartdiv) {
   for (const item in day_8) {
     var d = new Date(day_8[item]['time'] * 1000)
     day_8[item]['time'] = d.toLocaleDateString()
   }
-  console.log(day_8)
   var data = day_8
-
+  console.log(data)
   // Create root element
-  // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-  var root = am5.Root.new('chartdiv2')
+  var root = am5.Root.new(chartdiv)
 
   // Set themes
-  // https://www.amcharts.com/docs/v5/concepts/themes/
   root.setThemes([am5themes_Animated.new(root)])
 
   // Create chart
-  // https://www.amcharts.com/docs/v5/charts/xy-chart/
   var chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
@@ -45,8 +41,6 @@ var day_8_temp_rain = function (day_8) {
 
   xAxis.data.setAll(data)
   // Create axes
-  // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-
   var distanceAxisRenderer = am5xy.AxisRendererY.new(root, {})
   distanceAxisRenderer.grid.template.set('forceHidden', true)
   var distanceAxis = chart.yAxes.push(

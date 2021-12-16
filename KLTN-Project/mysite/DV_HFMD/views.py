@@ -1,4 +1,6 @@
-from datetime import date, datetime
+import calendar
+import datetime
+from datetime import date, datetime, timedelta
 
 import requests
 from django.contrib import messages
@@ -20,6 +22,7 @@ class c_index(View):
         api_key = "2a288a2f0cb72495457665a234a60d26"
         language = 'vi'
         day_8 = []
+        h_day_5 = []
         context={}
         if name :
             data = llvn.objects.filter(name__icontains=name)
@@ -53,6 +56,8 @@ class c_index(View):
                 # icon
                 current_icon = data_weather['current']['weather'][0]['icon'] 
                 
+                # ========================================
+                
                 try:
                     current_rain = data_weather['current']['rain']['1h']
                 except:
@@ -70,10 +75,42 @@ class c_index(View):
                     except: 
                         rain = 0.0
                     #icon
-                    icon = item['weather'][0]['icon']
+                    icon = data_weather['current']['weather'][0]['icon'] 
                     
                     record = {"time": time , "temp" : temp, "hum" : hum,'icon':icon, 'rain': rain}
                     day_8.append(record)
+                    
+                # =============================
+                l_day_today = date.today()
+                l_day = []
+                for x in range(5,0,-1):
+                    if x == 5 :
+                        d = l_day_today
+                        d = calendar.timegm(d.timetuple())
+                        l_day.append(d)
+            
+                    d = l_day_today - timedelta(x)
+                    print(d)
+                    d = calendar.timegm(d.timetuple())
+                    url2 = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=%s&lon=%s&dt=%s&appid=%s&units=metric&lang=%s&exclude=minutely,hourly,alerts'%(lat , lon,d ,api_key,language)
+                    response =  requests.get(url2)
+                    data_h_weather = response.json()
+                    # nhiệt độ 5 ngày trước
+                    h_temp = data_h_weather['current']['temp']
+                    # thời gian 5 ngày trước 
+                    h_time = data_h_weather['current']['dt']
+                    # độ ẩm 5 ngày trước
+                    h_hum = data_h_weather['current']['humidity']
+                    # Lượng mưa 5 ngày trước
+                    try:
+                        h_rain = data_h_weather['current']['rain']
+                    except: 
+                        h_rain = 0.0
+  
+                    h_record = {"time": h_time , "temp" : h_temp, "hum" : h_hum,'rain': h_rain}
+                    h_day_5.append(h_record)
+                print(url2)
+                
                 context = {'lon' : lon,
                            'lat': lat,
                            'today':today,
@@ -86,6 +123,7 @@ class c_index(View):
                            'max_temperature':max_temperature,
                            'current_icon':current_icon,
                            'day_8':day_8,
+                           'h_day_5':h_day_5,
                            'Last_update_time':Last_update_time,
                            'name': name}
                 return render(request, 'DV_HFMD/home_DV.html',context ) 
