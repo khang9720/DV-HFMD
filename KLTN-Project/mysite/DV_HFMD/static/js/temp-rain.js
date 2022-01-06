@@ -1,18 +1,16 @@
-var chart_temp_rain = function (day_8) {
-  chartdiv = 'chartdiv2'
+var chart_temp_rain = function (day_8, chartdiv) {
   for (const item in day_8) {
     var d = new Date(day_8[item]['time'] * 1000)
     day_8[item]['time'] = d.toLocaleDateString()
   }
-  console.log(day_8)
   var data = day_8
   // Create root element
   var root = am5.Root.new(chartdiv)
 
-  // // Set themes
+  // Set themes
   root.setThemes([am5themes_Animated.new(root)])
 
-  // // Create chart
+  // Create chart
   var chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,

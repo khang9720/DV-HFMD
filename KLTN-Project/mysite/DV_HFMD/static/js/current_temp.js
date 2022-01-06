@@ -1,10 +1,9 @@
 var current_temp = function (current_temperature) {
   var root = am5.Root.new('chartdiv')
-
   // Set themes
   // https://www.amcharts.com/docs/v5/concepts/themes/
   root.setThemes([am5themes_Animated.new(root)])
-
+  console.log('khang ne')
   // Create chart
   // https://www.amcharts.com/docs/v5/charts/radar-chart/
   var chart = root.container.children.push(

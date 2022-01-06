@@ -59,16 +59,29 @@ body {
 }
 iframe {
   width: 100%;
-  height: 700px;
-  max-height: 650px;
+  height: 922px;
+  max-height: 922px;
 }
-.name,
-.today {
-  max-width: 410px !important;
-  min-width: 400px;
+.name {
+  max-width: 580px;
+  min-width: 580px;
   max-height: 120px;
   height: 120px;
   margin: 0 1% 2% 1%;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.32);
+  opacity: 70%;
+}
+.today {
+  max-width: 360px !important;
+  min-width: 360px;
+  max-height: 120px;
+  height: 120px;
+  margin: 2% 3% 2% 1%;
   background-color: white;
   border: none;
   border-radius: 10px;
@@ -81,8 +94,8 @@ iframe {
 .rain,
 .wind,
 .hum {
-  max-width: 177px !important;
-  min-width: 177px;
+  max-width: 170px !important;
+  min-width: 170px;
   height: 120px;
   min-height: 120px;
   margin: 2% 1% 2% 1%;
@@ -107,7 +120,7 @@ iframe {
 }
 .row-name-today .today {
   font-family: 'SVN-Avo';
-  font-size: 48px;
+  font-size: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,6 +139,7 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 .col-view .row1 .description span {
   font-family: 'SVN-Avo';
@@ -234,13 +248,14 @@ iframe {
   width: 100%;
   margin: 0 auto;
   padding: 3%;
+  margin-bottom: 1%;
 }
 .chart-temp-rain h6 {
   text-align: center;
 }
 #chartdiv2 {
   width: 100%;
-  height: 50%;
+  height: 200px;
 }
 
 /* ===============7 day ago ================ */
@@ -252,6 +267,7 @@ iframe {
 }
 #chartdiv3 {
   width: 100%;
+  height: 200px;
 }
 /* ============================================ */
 .col2 {

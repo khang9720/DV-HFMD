@@ -58,7 +58,9 @@ class c_index(View):
                     lon = item.lon
 
                 url = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&appid=%s&units=metric&lang=%s&exclude=minutely" % (lat, lon, api_key, language)
+                
                 response = requests.get(url)
+                
                 data_weather = response.json()
                 # tên tỉnh thành
                 name = name 
@@ -132,40 +134,56 @@ class c_index(View):
   
                     h_record = {"time": h_time , "temp" : h_temp, "hum" : h_hum,'rain': h_rain}
                     h_day_5.append(h_record)
-                    with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response:
-                        counties = json.load(response)
-                    df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
+                    
+                with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response1:
+                    counties = json.load(response1)
+                df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
                 fig = px.choropleth(df, geojson=counties, locations='fips', color='unemp',
                         color_continuous_scale="Viridis",
                         range_color=(0, 40),
                         scope="asia",
-                        labels={'unemp':'number of infections', 'fips':'id'},
-                        
+                        labels={'unemp':'number of infections', 'fips':'id'}
                         )
                 fig.update_geos(
-                    center=dict(lon=108.2772, lat=14.0583),
-                    projection_scale=1,
+                    center=dict(lon=lon, lat=lat),
+                    projection_scale=2,
                     lonaxis_range= [ -15.0, -10.0 ],
-                    lataxis_range= [ 0.0, 10.0 ],
+                    lataxis_range= [ 0.0, 15.0 ],
                 )
-                fig.update_layout(autosize=False,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
+                response1.close()
+                
+                fig.update_layout(autosize=False, width=505,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
                 plot_div = plot(fig, output_type='div')                
-                context = {'lon' : lon,
-                           'lat': lat,
+                # context = {'lon' : lon,
+                #            'lat': lat,
+                #            'today':today,
+                #            'description':description,
+                #            'min_temperature':min_temperature,
+                #            'current_temperature':current_temperature,
+                #            'current_humidity':current_humidity,
+                #            'current_rain': current_rain,
+                #            'current_wind_speed':current_wind_speed,
+                #            'max_temperature':max_temperature,
+                #            'current_icon':current_icon,
+                #            'day_8':day_8,
+                #            'h_day_5':h_day_5,
+                #            'Last_update_time':Last_update_time,
+                #            'name': name,
+                #             'plot_div': plot_div}
+                context = {'lon' : lon,'lat': lat,
                            'today':today,
+                           'name': name,
+                           'current_icon':current_icon,
                            'description':description,
+                           'h_day_5':h_day_5,
+                           'day_8':day_8,
+                           'current_rain': current_rain,
+                           'current_humidity':current_humidity,
+                           'current_wind_speed':current_wind_speed,
                            'min_temperature':min_temperature,
                            'current_temperature':current_temperature,
-                           'current_humidity':current_humidity,
-                           'current_rain': current_rain,
-                           'current_wind_speed':current_wind_speed,
-                           'max_temperature':max_temperature,
-                           'current_icon':current_icon,
-                           'day_8':day_8,
-                           'h_day_5':h_day_5,
-                           'Last_update_time':Last_update_time,
-                           'name': name,
                            'plot_div': plot_div}
+                
                 return render(request, 'DV_HFMD/home_DV.html',context ) 
             else:
                 print("NUll")

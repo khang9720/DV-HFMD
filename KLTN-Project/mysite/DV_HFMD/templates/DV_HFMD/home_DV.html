@@ -108,18 +108,13 @@
           src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;ll={{lat}},{{lon}}&amp;spn=0.011254,0.021307&amp;t=m&amp;z=10&amp;output=embed"
         ></iframe>
       </div>
-      {% if name %}
-      <div class="col">
+      <div class="col col-map">
         {% autoescape off %} {{ plot_div }} {% endautoescape %}
       </div>
-
+      {% if name %}
       <div class="col col-view">
         <div class="row row-name-today">
           <div class="col name">{{name}}</div>
-          <div class="col today">{{today}}</div>
-        </div>
-
-        <div class="row row1">
           <div class="col description">
             <img
               src=" http://openweathermap.org/img/wn/{{current_icon}}@2x.png "
@@ -127,6 +122,9 @@
             />
             <span>{{description}}</span>
           </div>
+          <div class="col today">{{today}}</div>
+        </div>
+        <div class="row row1">
           <div class="col temp">
             <div id="chartdiv"></div>
           </div>
@@ -146,39 +144,31 @@
           </div>
         </div>
         <div class="chart-temp-rain">
-          <div>
-            <h6>Dự báo nhiệt độ và lượng mưa 8 ngày tiếp theo</h6>
-            <div id="chartdiv2" class="col"></div>
-          </div>
-          <div>
-            <h6>Lịch sử nhiệt độ và lượng mưa</h6>
-            <div id="chartdiv3"></div>
-          </div>
+          <h6>Dự báo nhiệt độ và lượng mưa 8 ngày tiếp theo</h6>
+          <div id="chartdiv2" class="col"></div>
+        </div>
+        <div class="chart-temp-rain">
+          <h6>Lịch sử nhiệt độ và lượng mưa</h6>
+          <div id="chartdiv3"></div>
         </div>
       </div>
     </div>
-    <div class="row row2">
-      <div class="col col2">
-        <h6>Lịch sử nhiệt độ và lượng mưa</h6>
-        <div id="chartdiv3"></div>
-      </div>
-      <div class="col"></div>
-    </div>
 
     {% endif %}
-    <div class="row row-7-day-ago"></div>
     <script src="{% static 'js/search-name.js' %}"></script>
     <script src="{% static 'js/current_hum.js' %}"></script>
     <script src="{% static 'js/current_temp.js' %}"></script>
     <script src="{% static 'js/current_wind.js' %}"></script>
     <script src="{% static 'js/day-8-temp-rain.js' %}"></script>
+    <script src="{% static 'js/temp-rain.js' %}"></script>
     <script>
-      var js_variable = {{day_8|safe  }}
-      var js_variable_h = {{h_day_5 | safe}}
+      console.log("khang ne")
       current_temp({{current_temperature}})
       current_hum({{current_humidity}})
-      chart_temp_rain(js_variable,'chartdiv2')
-      chart_temp_rain(js_variable_h,'chartdiv3')
+      var js_variable = {{day_8|safe  }}
+      var js_variable_h = {{h_day_5| safe}}
+      chart_temp_rain(js_variable,"chartdiv2")
+      chart_temp_rain(js_variable_h,"chartdiv3")
     </script>
   </body>
 </html>
