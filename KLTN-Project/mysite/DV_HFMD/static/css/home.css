@@ -41,7 +41,8 @@ body {
     background-position: 0% 50%;
   }
 }
-.row-today {
+.row-today,
+.row2 {
   margin: 0 auto;
   margin: 4%;
   margin-top: 2%;
@@ -239,7 +240,7 @@ iframe {
 }
 #chartdiv2 {
   width: 100%;
-  height: 400px;
+  height: 50%;
 }
 
 /* ===============7 day ago ================ */
@@ -251,5 +252,19 @@ iframe {
 }
 #chartdiv3 {
   width: 100%;
-  height: 500px;
+}
+/* ============================================ */
+.col2 {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+  -webkit-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: 34px 32px 81px -4px rgba(0, 0, 0, 0.47);
+}
+.col2 {
+  padding: 1%;
+}
+.col2 h6 {
+  text-align: center;
 }

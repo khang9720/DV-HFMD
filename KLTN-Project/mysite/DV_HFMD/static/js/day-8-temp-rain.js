@@ -4,7 +4,6 @@ var chart_temp_rain = function (day_8, chartdiv) {
     day_8[item]['time'] = d.toLocaleDateString()
   }
   var data = day_8
-  console.log(data)
   // Create root element
   var root = am5.Root.new(chartdiv)
 
@@ -32,8 +31,7 @@ var chart_temp_rain = function (day_8, chartdiv) {
       }),
     }),
   )
-  //   xAxis.get('dateFormats')['day'] = 'MM/dd'
-  //   xAxis.get('periodChangeDateFormats')['day'] = 'MMMM'
+
   xAxis.get('renderer').labels.template.setAll({
     paddingTop: 20,
     fontSize: 12,

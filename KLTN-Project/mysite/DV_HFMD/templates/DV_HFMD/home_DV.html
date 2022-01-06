@@ -109,6 +109,10 @@
         ></iframe>
       </div>
       {% if name %}
+      <div class="col">
+        {% autoescape off %} {{ plot_div }} {% endautoescape %}
+      </div>
+
       <div class="col col-view">
         <div class="row row-name-today">
           <div class="col name">{{name}}</div>
@@ -142,12 +146,25 @@
           </div>
         </div>
         <div class="chart-temp-rain">
-          <h6>Dự báo nhiệt độ và lượng mưa 8 ngày tiếp theo</h6>
-          <div id="chartdiv2" class="col"></div>
+          <div>
+            <h6>Dự báo nhiệt độ và lượng mưa 8 ngày tiếp theo</h6>
+            <div id="chartdiv2" class="col"></div>
+          </div>
+          <div>
+            <h6>Lịch sử nhiệt độ và lượng mưa</h6>
+            <div id="chartdiv3"></div>
+          </div>
         </div>
       </div>
     </div>
-    <div id="chartdiv3"></div>
+    <div class="row row2">
+      <div class="col col2">
+        <h6>Lịch sử nhiệt độ và lượng mưa</h6>
+        <div id="chartdiv3"></div>
+      </div>
+      <div class="col"></div>
+    </div>
+
     {% endif %}
     <div class="row row-7-day-ago"></div>
     <script src="{% static 'js/search-name.js' %}"></script>
@@ -158,8 +175,6 @@
     <script>
       var js_variable = {{day_8|safe  }}
       var js_variable_h = {{h_day_5 | safe}}
-      console.log(js_variable)
-      console.log(js_variable_h)
       current_temp({{current_temperature}})
       current_hum({{current_humidity}})
       chart_temp_rain(js_variable,'chartdiv2')

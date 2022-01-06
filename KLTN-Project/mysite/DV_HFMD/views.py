@@ -1,7 +1,14 @@
 import calendar
 import datetime
+import json
+import types
 from datetime import date, datetime, timedelta
+from typing import Type
 
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 import requests
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -9,6 +16,9 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.views import View
+from plotly.graph_objs import Scatter
+from plotly.offline import plot
+from plotly.subplots import make_subplots
 
 from .models import llvn
 
@@ -17,6 +27,21 @@ from .models import llvn
 class c_index(View):
     def get(selt, request):
         return render(request,'DV_HFMD/home_DV.html')
+    
+    # def get(selt, request):
+    #     with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response:
+    #         counties = json.load(response)
+    #     df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
+    #     fig = px.choropleth(df, geojson=counties, locations='fips', color='unemp',
+    #                        color_continuous_scale="Viridis",
+    #                        range_color=(0, 12),
+    #                        scope="asia",
+    #                        labels={'unemp':'number of infections', 'fips':'id'}
+    #                        )
+    #     fig.update_layout(autosize=False, width=500,height=500, margin={"r":0,"t":0,"l":0,"b":0})       
+    #     plot_div = plot(fig, output_type='div')
+    #     return render(request, "DV_HFMD/home_DV.html", context={'plot_div': plot_div})
+    
     def post(sefl, request):
         name = request.POST.get('name')
         api_key = "2a288a2f0cb72495457665a234a60d26"
@@ -79,7 +104,6 @@ class c_index(View):
                     
                     record = {"time": time , "temp" : temp, "hum" : hum,'icon':icon, 'rain': rain}
                     day_8.append(record)
-                    
                 # =============================
                 l_day_today = date.today()
                 l_day = []
@@ -90,7 +114,6 @@ class c_index(View):
                         l_day.append(d)
             
                     d = l_day_today - timedelta(x)
-                    print(d)
                     d = calendar.timegm(d.timetuple())
                     url2 = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=%s&lon=%s&dt=%s&appid=%s&units=metric&lang=%s&exclude=minutely,hourly,alerts'%(lat , lon,d ,api_key,language)
                     response =  requests.get(url2)
@@ -109,8 +132,24 @@ class c_index(View):
   
                     h_record = {"time": h_time , "temp" : h_temp, "hum" : h_hum,'rain': h_rain}
                     h_day_5.append(h_record)
-                print(url2)
-                
+                    with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response:
+                        counties = json.load(response)
+                    df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
+                fig = px.choropleth(df, geojson=counties, locations='fips', color='unemp',
+                        color_continuous_scale="Viridis",
+                        range_color=(0, 40),
+                        scope="asia",
+                        labels={'unemp':'number of infections', 'fips':'id'},
+                        
+                        )
+                fig.update_geos(
+                    center=dict(lon=108.2772, lat=14.0583),
+                    projection_scale=1,
+                    lonaxis_range= [ -15.0, -10.0 ],
+                    lataxis_range= [ 0.0, 10.0 ],
+                )
+                fig.update_layout(autosize=False,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
+                plot_div = plot(fig, output_type='div')                
                 context = {'lon' : lon,
                            'lat': lat,
                            'today':today,
@@ -125,7 +164,8 @@ class c_index(View):
                            'day_8':day_8,
                            'h_day_5':h_day_5,
                            'Last_update_time':Last_update_time,
-                           'name': name}
+                           'name': name,
+                           'plot_div': plot_div}
                 return render(request, 'DV_HFMD/home_DV.html',context ) 
             else:
                 print("NUll")

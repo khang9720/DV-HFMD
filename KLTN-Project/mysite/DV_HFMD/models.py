@@ -9,3 +9,13 @@ class llvn(models.Model):
     lat = models.FloatField()
     def __str__(self):
         return self.name
+    
+class population(models.Model):
+    idname = models.IntegerField()
+    name = models.CharField(max_length=255)
+    male = models.IntegerField()
+    female = models.IntegerField()
+    year = models.IntegerField()
+
+    def __str__(self):
+        return self.name
