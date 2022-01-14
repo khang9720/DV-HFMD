@@ -28,20 +28,6 @@ class c_index(View):
     def get(selt, request):
         return render(request,'DV_HFMD/home_DV.html')
     
-    # def get(selt, request):
-    #     with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response:
-    #         counties = json.load(response)
-    #     df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
-    #     fig = px.choropleth(df, geojson=counties, locations='fips', color='unemp',
-    #                        color_continuous_scale="Viridis",
-    #                        range_color=(0, 12),
-    #                        scope="asia",
-    #                        labels={'unemp':'number of infections', 'fips':'id'}
-    #                        )
-    #     fig.update_layout(autosize=False, width=500,height=500, margin={"r":0,"t":0,"l":0,"b":0})       
-    #     plot_div = plot(fig, output_type='div')
-    #     return render(request, "DV_HFMD/home_DV.html", context={'plot_div': plot_div})
-    
     def post(sefl, request):
         name = request.POST.get('name')
         api_key = "2a288a2f0cb72495457665a234a60d26"
@@ -154,22 +140,7 @@ class c_index(View):
                 
                 fig.update_layout(autosize=False, width=505,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
                 plot_div = plot(fig, output_type='div')                
-                # context = {'lon' : lon,
-                #            'lat': lat,
-                #            'today':today,
-                #            'description':description,
-                #            'min_temperature':min_temperature,
-                #            'current_temperature':current_temperature,
-                #            'current_humidity':current_humidity,
-                #            'current_rain': current_rain,
-                #            'current_wind_speed':current_wind_speed,
-                #            'max_temperature':max_temperature,
-                #            'current_icon':current_icon,
-                #            'day_8':day_8,
-                #            'h_day_5':h_day_5,
-                #            'Last_update_time':Last_update_time,
-                #            'name': name,
-                #             'plot_div': plot_div}
+
                 context = {'lon' : lon,'lat': lat,
                            'today':today,
                            'name': name,

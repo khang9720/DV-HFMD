@@ -108,10 +108,10 @@
           src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;ll={{lat}},{{lon}}&amp;spn=0.011254,0.021307&amp;t=m&amp;z=10&amp;output=embed"
         ></iframe>
       </div>
+      {% if name %}
       <div class="col col-map">
         {% autoescape off %} {{ plot_div }} {% endautoescape %}
       </div>
-      {% if name %}
       <div class="col col-view">
         <div class="row row-name-today">
           <div class="col name">{{name}}</div>
