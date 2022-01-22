@@ -34,7 +34,7 @@ var chart_temp_rain = function (day_8, chartdiv) {
 
   xAxis.get('renderer').labels.template.setAll({
     paddingTop: 20,
-    fontSize: 12,
+    fontSize: 8,
   })
 
   xAxis.data.setAll(data)

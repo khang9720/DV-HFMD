@@ -54,6 +54,7 @@
     <script src="//cdn.amcharts.com/lib/4/core.js"></script>
     <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
     {% comment %} end amcharts {% endcomment %}
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"
       integrity="sha512-6kvhZ/39gRVLmoM/6JxbbJVTYzL/gnbDVsHACLx/31IREU4l3sI7yeO0d4gw8xU5Mpmm/17LMaDHOCf+TvuC2Q=="
@@ -148,7 +149,7 @@
           <div id="chartdiv2" class="col"></div>
         </div>
         <div class="chart-temp-rain">
-          <h6>Lịch sử nhiệt độ và lượng mưa</h6>
+          <h6>Lịch sử nhiệt độ và lượng mưa 5 ngày trước</h6>
           <div id="chartdiv3"></div>
         </div>
       </div>
@@ -159,10 +160,8 @@
     <script src="{% static 'js/current_hum.js' %}"></script>
     <script src="{% static 'js/current_temp.js' %}"></script>
     <script src="{% static 'js/current_wind.js' %}"></script>
-    <script src="{% static 'js/day-8-temp-rain.js' %}"></script>
     <script src="{% static 'js/temp-rain.js' %}"></script>
     <script>
-      console.log("khang ne")
       current_temp({{current_temperature}})
       current_hum({{current_humidity}})
       var js_variable = {{day_8|safe  }}

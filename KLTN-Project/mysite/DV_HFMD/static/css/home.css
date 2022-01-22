@@ -5,7 +5,7 @@
   border: none;
 }
 body {
-  padding: 0 5% 0 5%;
+  padding: 0 2% 0 2%;
   background: linear-gradient(62deg, #0f1125, #016430);
   animation: gradient 20s ease infinite;
   background-size: 400% 400%;
@@ -128,7 +128,7 @@ iframe {
 
 .col-view .row1 {
   margin: 0 auto;
-  margin: 0 1% 4% 1%;
+  margin: 0 0% 4% 0%;
   width: 100%;
 }
 .description {
@@ -247,7 +247,7 @@ iframe {
   border-radius: 10px;
   width: 100%;
   margin: 0 auto;
-  padding: 3%;
+  padding: 1%;
   margin-bottom: 1%;
 }
 .chart-temp-rain h6 {

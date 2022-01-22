@@ -3,6 +3,7 @@ import datetime
 import json
 import types
 from datetime import date, datetime, timedelta
+from io import BytesIO
 from typing import Type
 
 import numpy as np
@@ -15,13 +16,16 @@ from django.contrib.messages import constants
 from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
+from django.template.loader import get_template
 from django.views import View
 from plotly.graph_objs import Scatter
 from plotly.offline import plot
 from plotly.subplots import make_subplots
+from xhtml2pdf import pisa
 
 from .models import llvn
 
+var1 = {}
 
 # Create your views here.
 class c_index(View):
@@ -42,9 +46,8 @@ class c_index(View):
                     # Lấy tọa độ được chọn 
                     lat = item.lat
                     lon = item.lon
-
+                    
                 url = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&appid=%s&units=metric&lang=%s&exclude=minutely" % (lat, lon, api_key, language)
-                
                 response = requests.get(url)
                 
                 data_weather = response.json()
@@ -100,7 +103,6 @@ class c_index(View):
                         d = l_day_today
                         d = calendar.timegm(d.timetuple())
                         l_day.append(d)
-            
                     d = l_day_today - timedelta(x)
                     d = calendar.timegm(d.timetuple())
                     url2 = 'https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=%s&lon=%s&dt=%s&appid=%s&units=metric&lang=%s&exclude=minutely,hourly,alerts'%(lat , lon,d ,api_key,language)
@@ -124,11 +126,11 @@ class c_index(View):
                 with open('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/json/maindata.json', encoding="utf8") as response1:
                     counties = json.load(response1)
                 df = pd.read_csv('D:/wamp64/www/DV-HFMD/KLTN-Project/mysite/DV_HFMD/static/csv/numofca.csv')
-                fig = px.choropleth(df, geojson=counties, locations='fips', color='unemp',
+                fig = px.choropleth(df, geojson=counties, locations='id', color='mun',
                         color_continuous_scale="Viridis",
                         range_color=(0, 40),
                         scope="asia",
-                        labels={'unemp':'number of infections', 'fips':'id'}
+                        labels={'mun':'number of infections', 'id':'id'}
                         )
                 fig.update_geos(
                     center=dict(lon=lon, lat=lat),
@@ -138,7 +140,7 @@ class c_index(View):
                 )
                 response1.close()
                 
-                fig.update_layout(autosize=False, width=505,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
+                fig.update_layout(autosize=False, width=555,height=1022,margin=dict(l=0, r=0, t=0, b=0, pad=4, autoexpand = True))       
                 plot_div = plot(fig, output_type='div')                
 
                 context = {'lon' : lon,'lat': lat,
@@ -154,7 +156,8 @@ class c_index(View):
                            'min_temperature':min_temperature,
                            'current_temperature':current_temperature,
                            'plot_div': plot_div}
-                
+                global var1
+                var1 = {"khang ": "khangne"}
                 return render(request, 'DV_HFMD/home_DV.html',context ) 
             else:
                 print("NUll")
@@ -169,3 +172,35 @@ def search(request):
         for item in data:
             payload.append(item.name)
     return JsonResponse({'status': 200,'payload':payload})
+
+dataPDF = {}
+def render_to_pdf(template_src, context_dict={}):
+    global var1
+    print(var1)
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode('utf-8')),result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+
+class ViewPDF(View):
+	def get(self, request, *args, **kwargs):
+
+		pdf = render_to_pdf('DV_HFMD/pdf_template.html', dataPDF)
+		return HttpResponse(pdf, content_type='application/pdf')
+        
+#Automaticly downloads to PDF file
+class DownloadPDF(View):
+	def get(self, request, *args, **kwargs):
+		pdf = render_to_pdf('DV_HFMD/pdf_template.html', dataPDF)
+		response = HttpResponse(pdf, content_type='application/pdf')
+		filename = "tenFile%s.pdf" %("1")
+		content = "attachment; filename='%s'" %(filename)
+		response['Content-Disposition'] = content
+		return response
+def view_down_pdf(request):
+	context = {}
+	return render(request, 'DV_HFMD/view_down_pdf.html', context)

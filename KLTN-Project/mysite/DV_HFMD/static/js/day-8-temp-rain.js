@@ -33,10 +33,11 @@ var chart_temp_rain = function (day_8) {
       }),
     }),
   )
-
-  xAxis.get('renderer').labels.template.setAll({
+  var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 })
+  xAxis.labels.template.setAll({
     paddingTop: 20,
-    fontSize: 8,
+    paddingRight: 20,
+    fontSize: 2,
   })
 
   xAxis.data.setAll(data)
@@ -117,7 +118,11 @@ var chart_temp_rain = function (day_8) {
       yAxis: distanceAxis,
     }),
   )
-  rainSeries.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 })
+
+  rainSeries.columns.template.setAll({
+    cornerRadiusTL: 5,
+    cornerRadiusTR: 5,
+  })
   tempSeries.set('stroke', am5.color(0xff621f))
   tempSeries.set('fill', am5.color(0xff621f))
 

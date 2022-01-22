@@ -3,7 +3,6 @@ var current_temp = function (current_temperature) {
   // Set themes
   // https://www.amcharts.com/docs/v5/concepts/themes/
   root.setThemes([am5themes_Animated.new(root)])
-  console.log('khang ne')
   // Create chart
   // https://www.amcharts.com/docs/v5/charts/radar-chart/
   var chart = root.container.children.push(
@@ -41,12 +40,11 @@ var current_temp = function (current_temperature) {
 
   // Create axes and their renderers
   var xRenderer = am5radar.AxisRendererCircular.new(root, {
-    //minGridDistance: 50
+    minGridDistance: 50,
   })
 
   xRenderer.labels.template.setAll({
     radius: 10,
-    fontSize: 10,
   })
 
   xRenderer.grid.template.setAll({
@@ -65,7 +63,7 @@ var current_temp = function (current_temperature) {
   )
 
   var yRenderer = am5radar.AxisRendererRadial.new(root, {
-    minGridDistance: 20,
+    //minGridDistance: 20,
   })
 
   yRenderer.labels.template.setAll({
